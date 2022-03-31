@@ -6,17 +6,17 @@
     <button @click="getTransferRecord()">转运信息</button>
     <button @click="getTrackRecord()">转运路径</button>
     <button @click="getDisposeInfo()">处理厂接受信息</button>
+    <button @click="wsTest()">ws in Get</button>
     <ul v-for="(item, index) in showed" :key="index">
       <li>{{item}}</li>
     </ul>
     <router-link to="map">MAP</router-link>
     <br>
-    <!-- <router-link to="test">Test</router-link> -->
-    <!-- <Map name="map"></Map> -->
+    <input type="text" v-model="input">
+    <button @click="websocketSend()">wsSend</button>
   </div>
 </template>
 <script>
-  // import Map from '../components/MapContainer.vue'
   export default {
     name: 'Home',
     components: {
@@ -24,11 +24,18 @@
     },
     data() {
       return {
-        showed: []
+        showed: [],
+        socket: null,
+        path: 'ws://localhost:3001',
+        input: '',
       }
     },
     created() {
       this.getPackageInfo()
+      this.websocketInit()
+      // setTimeout(()=> {
+      //   this.websocketSend()
+      // }, 1000)
     },
     methods: {
       async getPackageInfo() {
@@ -54,6 +61,27 @@
         const result = await this.$http.get('disposeinfo')
         this.showed = result.data
       },
+      websocketInit() {
+        if (typeof (WebSocket) === 'undefined') {
+          alert('你的浏览器不支持websocket')
+        } else {
+          this.socket = new WebSocket(this.path)
+          this.socket.onopen = () => {
+            console.log('Connection open ...')
+            this.socket.send("Hello WebSockets!")
+          }
+          this.socket.onmessage = (e) => {
+            console.log(e.data);
+          }
+        }
+      },
+      websocketSend() {
+        // console.log(this.input);
+        this.socket.send(this.input)
+      },
+      wsTest() {
+        this.$http.get('/')
+      }
     },
   }
 </script>
