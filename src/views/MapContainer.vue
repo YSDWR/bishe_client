@@ -15,13 +15,17 @@
                 polyline: null,
                 passedPolyline: null,
                 marker: null,
-                lineArr: []
+                lineArr: [[118.716201,30.908126],[118.719479,30.907173],
+                        [118.721565,30.906561],[118.725197,30.909686],
+                        [118.749262,30.930478],[118.750217,30.930653]]
             }
         },
         created() {
-            this.getTrackRecord().then(() => {
+            // this.getTrackRecord().then(() => {
+            //     this.initAMap();
+            // })
                 this.initAMap();
-            })
+
         },
         mounted() {
             

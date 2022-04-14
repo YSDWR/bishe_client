@@ -2,7 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import Home from '../views/Home'
-import Map from '../views/MapContainer'
+import Home_test from '../views/Home_test'
+import Add from '../views/Add'
+import PackageInfo from '../views/PackageInfo'
+import DisposeInfo from '../views/DisposeInfo'
+const TrackRecord = () => import ('../views/MapContainer')
+const Collects = () => import('../views/Collects')
+const Disposels = () => import('../views/Disposels')
 import E404 from '../views/E404'
 
 Vue.use(VueRouter)
@@ -27,12 +33,49 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home,
+    children: [
+      {
+        path: '/home',
+        redirect: '/packageinfo'
+      },
+      {
+      path:'/test',
+      name: 'home_test',
+      component: Home_test
+      },
+      {
+        path: '/map',
+        name: 'map',
+        component: TrackRecord
+      },
+      {
+        path: '/packageinfo',
+        name: 'packageinfo',
+        component: PackageInfo
+      },
+      {
+        path: '/disposeinfo/:id',
+        name: 'disposeinfo',
+        component: DisposeInfo
+      },
+      {
+        path: '/collects',
+        name: 'collects',
+        component: Collects
+      },
+      {
+        path: '/disposels',
+        name: 'disposels',
+        component: Disposels
+      },
+      {
+        path: '/add',
+        name: 'add',
+        component: Add
+      },
+    ]
   },
-  {
-    path: '/map',
-    name: 'map',
-    component: Map
-  }
+  
 ]
 
 const router = new VueRouter({

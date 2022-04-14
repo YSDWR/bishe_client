@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h1>404 Not Found</h1>
+    <h2>收集统计</h2>
   </div>
 </template>
 <script>
 export default {
-  name: "E404",
-  
-};
+  name: 'collects',
+
+}
 </script>
 <style>
+  
 </style>
